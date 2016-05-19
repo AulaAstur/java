@@ -12,6 +12,7 @@ public class Principal {
 		String nombre;
 		int cantidad;
 		int opcion;
+		int index;
 
 		do {
 			System.out.println("Seleccione la opción a realizar");
@@ -30,10 +31,22 @@ public class Principal {
 				System.out.println("\nInserte nombre");
 				nombre = teclado.nextLine();
 
-				Producto aa = new Producto(referencia, nombre);
-				lista.add(aa);
-
-			} // if
+				Producto producto = new Producto(referencia, nombre);
+				lista.add(producto);
+				
+				System.out.println("\n"+producto.toString());
+				
+			}else if(opcion==2){
+				System.out.println("Solo las opciones 1, 3 y 99 están disponibles");
+				
+			}else if(opcion==3){
+				System.out.println("\nIndique numero de producto");
+				index = teclado.nextInt();
+				System.out.println(lista.get(index));
+				
+			}else if(opcion==99){
+				System.out.println("Salida de programa");System.exit(0);
+			}
 
 		} while (opcion != 99);
 	}
