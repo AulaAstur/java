@@ -41,8 +41,8 @@ public class Principal {
 				
 			}else if(opcion==3){
 				System.out.println("\nIndique numero de producto");
-				index = teclado.nextInt();
-				System.out.println(lista.get(index));
+				index = Integer.parseInt(teclado.nextLine());
+				System.out.println(lista.get(index-1));
 				
 			}else if(opcion==99){
 				System.out.println("Salida de programa");System.exit(0);
