@@ -1,6 +1,7 @@
 package almacen;
 
 import java.util.*;
+import java.io.*;
 
 public class Principal {
 
@@ -18,10 +19,15 @@ public class Principal {
 		do {
 			System.out.println("Seleccione la opción a realizar");
 			System.out.println("---------------------");
-			System.out.println("1) Añadir producto");
+			System.out.println("1) Añadir producto [SOLO MEMORIA RAM]");
 			System.out.println("2) Eliminar producto");
 			System.out.println("3) Mostrar numero de productos");
 			System.out.println("4) Informacion de los productos");
+			System.out.println("5)Añadir productos en el disco duro");
+			/*
+			 Un producto tiene 4 atributos.
+			 Cada linea será un dato.Bufferescritura. 
+			 */
 			System.out.println("99) Salir del programa");
 			
 			try{
@@ -39,7 +45,9 @@ public class Principal {
 				lista.add(producto);
 				
 				System.out.println("\n"+producto.toString());break;
-		
+				
+				
+				
 			case 2:System.out.println("\nIntroduzca producto a eliminar");
 				eliminar = Integer.parseInt(teclado.nextLine());
 				lista.remove(eliminar-1);break;
@@ -54,6 +62,36 @@ public class Principal {
 			{
 				System.out.println(lista.get(pos).toString());
 			}break;
+			
+			case 5:System.out.println("\nInserte referencia");
+			referencia = teclado.nextLine();
+
+			System.out.println("\nInserte nombre");
+			nombre = teclado.nextLine();
+
+			Producto produc = new Producto(referencia, nombre);
+			lista.add(produc);
+			
+			System.out.println("\n"+produc.toString());
+			try{
+			FileWriter fw=new FileWriter("lista.dat");
+			BufferedWriter bf = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bf);
+			for(int i=0;i<lista.size();i++){
+				pw.println(lista.get(i).getReferencia());
+				pw.println(lista.get(i).getNombre());
+				pw.println(lista.get(i).getPrecio());
+				pw.println(lista.get(i).getCantidad());
+			}
+			
+			pw.close();
+			bf.close();
+			fw.close();
+			
+			
+			}catch(Exception e){System.out.println("Compruebe disco duro");};
+			
+			break; 
 				
 			case 99:System.out.println("Salida de programa");System.exit(0);break;
 		};
