@@ -11,10 +11,10 @@ public class Principal {
 		String referencia;
 		String nombre;
 		int cantidad;
-		int opcion;
+		int opcion = 0;
 		int index;
 		int eliminar;
-
+		
 		do {
 			System.out.println("Seleccione la opción a realizar");
 			System.out.println("---------------------");
@@ -23,6 +23,8 @@ public class Principal {
 			System.out.println("3) Mostrar numero de productos");
 			System.out.println("4) Informacion de los productos");
 			System.out.println("99) Salir del programa");
+			
+			try{
 			opcion = Integer.parseInt(teclado.nextLine());
 
 			switch (opcion) {
@@ -54,8 +56,11 @@ public class Principal {
 			}break;
 				
 			case 99:System.out.println("Salida de programa");System.exit(0);break;
-		};//Cierre de switch
+		};
+		} catch (Exception e) {System.out.println("Error 181");};
 		} while (opcion != 99);
+		
+	
 	}
 
 }
