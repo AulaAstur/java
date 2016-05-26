@@ -1,75 +1,66 @@
 package almacen;
 
-class Producto {
-	private String referencia;
-	private String nombre;
-	private double precio;
-	private int cantidad;
-	private int porcentaje;
-	
-	Producto(String referencia, String nombre) {
-		super();
-		this.referencia = referencia;
-		this.nombre = nombre;
-	}
+import java.util.*;
 
-	Producto(String referencia, String nombre, double precio) {
-		super();
-		this.referencia = referencia;
-		this.nombre = nombre;
-		this.precio = precio;
-	}
+public class Principal {
 
-	Producto(String referencia, String nombre, double precio, int cantidad) {
-		super();
-		this.referencia = referencia;
-		this.nombre = nombre;
-		this.precio = precio;
-		this.cantidad = cantidad;
-	}
-
-	String getReferencia() {
-		return referencia;
-	}
-	void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
-	String getNombre() {
-		return nombre;
-	}
-	void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	double getPrecio() {
-		return precio;
-	}
-	void setPrecio(double precio) {
-		this.precio = precio;
-	}
-	int getCantidad() {
-		return cantidad;
-	}
-	void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	double precioConIVA(){
-		return this.precio*1.21;
-	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList<Producto> lista = new ArrayList<>();
+		Scanner teclado = new Scanner(System.in);
+		String referencia;
+		String nombre;
+		int cantidad;
+		int opcion = 0;
+		int index;
+		int eliminar;
 		
-	void cambioPrecio(double porcentaje){
-		if (porcentaje>0){
-			this.precio=this.precio*this.porcentaje;
-		}
+		do {
+			System.out.println("Seleccione la opción a realizar");
+			System.out.println("---------------------");
+			System.out.println("1) Añadir producto");
+			System.out.println("2) Eliminar producto");
+			System.out.println("3) Mostrar numero de productos");
+			System.out.println("4) Informacion de los productos");
+			System.out.println("99) Salir del programa");
+			
+			try{
+			opcion = Integer.parseInt(teclado.nextLine());
+
+			switch (opcion) {
+
+			case 1:System.out.println("\nInserte referencia");
+				referencia = teclado.nextLine();
+
+				System.out.println("\nInserte nombre");
+				nombre = teclado.nextLine();
+
+				Producto producto = new Producto(referencia, nombre);
+				lista.add(producto);
+				
+				System.out.println("\n"+producto.toString());break;
 		
-	}
+			case 2:System.out.println("\nIntroduzca producto a eliminar");
+				eliminar = Integer.parseInt(teclado.nextLine());
+				lista.remove(eliminar-1);break;
+				
+				
+			case 3:System.out.println("\nIndique numero de producto");
+				index = Integer.parseInt(teclado.nextLine());
+				System.out.println(lista.get(index-1));break;
+				
+			case 4:System.out.println("\nSe van a mostrar todos los productos almacenados");
+				for (int pos=0;pos<lista.size();pos++)
+			{
+				System.out.println(lista.get(pos).toString());
+			}break;
+				
+			case 99:System.out.println("Salida de programa");System.exit(0);break;
+		};
+		} catch (Exception e) {System.out.println("Error 181");};
+		} while (opcion != 99);
 		
 	
-	@Override
-	public String toString() {
-		return "Producto [referencia=" + referencia + ", nombre=" + nombre + ", precio=" + precio + ", cantidad="
-				+ cantidad + "]";
 	}
-	
-	
+
 }
