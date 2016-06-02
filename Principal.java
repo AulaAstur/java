@@ -12,6 +12,7 @@ public class Principal {
 		String referencia;
 		String nombre;
 		int cantidad;
+		double precio;
 		int opcion = 0;
 		int index;
 		int eliminar;
@@ -19,15 +20,14 @@ public class Principal {
 		do {
 			System.out.println("Seleccione la opción a realizar");
 			System.out.println("---------------------");
-			System.out.println("1) Añadir producto [SOLO MEMORIA RAM]");
-			System.out.println("2) Eliminar producto");
-			System.out.println("3) Mostrar numero de productos");
-			System.out.println("4) Informacion de los productos");
-			System.out.println("5)Añadir productos en el disco duro");
-			/*
-			 Un producto tiene 4 atributos.
-			 Cada linea será un dato.Bufferescritura. 
-			 */
+			System.out.println("1) Añadir producto [SOLO MEMORIA RAM].");
+			System.out.println("2) Eliminar producto.");
+			System.out.println("3) Mostrar numero de productos.");
+			System.out.println("4) Informacion de los productos.");
+			System.out.println("5)Añadir productos en el disco duro.");
+			System.out.println("7)Cargar productos del fichero en memoria. ");
+			System.out.println("[NO DISPONIBLE] 8)Mostrar en pantalla productos del fichero ");
+			System.out.println("9)Escribir productos en fichero binario.");
 			System.out.println("99) Salir del programa");
 			
 			try{
@@ -92,10 +92,62 @@ public class Principal {
 			}catch(Exception e){System.out.println("Compruebe disco duro");};
 			
 			break; 
+		
+		
+			case 6:
+				try{
+					FileReader fr = new FileReader("lista.dat");
+					BufferedReader bf = new BufferedReader(fr);
+					lista.clear();
+					while((referencia=bf.readLine())!= null)
+					{
+						nombre=bf.readLine();
+						precio=Double.parseDouble(bf.readLine());
+						cantidad = Integer.parseInt(bf.readLine());
+						Producto pnuevo =new Producto(referencia,nombre,precio,cantidad);
+						lista.add(pnuevo);
+					}
+					
+					bf.close();
+					fr.close();
+					
+				}catch (Exception e) {System.out.println("Error 600");}break;
+			
+			
 				
-			case 99:System.out.println("Salida de programa");System.exit(0);break;
-		};
-		} catch (Exception e) {System.out.println("Error 181");};
+			case 9: 
+				try{
+					
+					
+					FileOutputStream fs = new FileOutputStream("Binfile0.jbin");
+					BufferedOutputStream bs = new BufferedOutputStream(fs);
+					DataOutputStream out = new DataOutputStream(bs);
+					
+					for(int i=0;i<lista.size();i++){
+						out.writeUTF(lista.get(i).getReferencia());
+						out.writeUTF(lista.get(i).getNombre());
+						out.writeDouble(lista.get(i).getPrecio());
+						out.writeInt(lista.get(i).getCantidad());
+					}
+					out.close();
+					bs.close();
+					fs.close();
+					
+				}catch (Exception e){System.out.println("Error 900");}break;
+				
+				
+			case 10: 
+				try{
+					
+					
+					
+				}catch (Exception e){System.out.println("Error 1000");}break;
+				
+				
+		case 99:System.out.println("Salida de programa");System.exit(0);break;
+		
+			}
+		} catch (Exception e) {System.out.println("Error crítico. Código error 10");};
 		} while (opcion != 99);
 		
 	
